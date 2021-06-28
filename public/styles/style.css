@@ -1,0 +1,91 @@
+.navbar {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 9;
+}
+
+.container {
+  margin-top: 4rem;
+  margin-bottom: 3rem;
+}
+
+.card-image {
+  height: 30vh;
+  overflow: hidden;
+}
+
+.card-image img {
+  height: 100%;
+  object-fit: cover;
+  transition: 0.2s;
+}
+
+.card-image:hover img {
+  transform: scale(1.2);
+}
+
+.card-title {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 90%;
+}
+
+.show-image {
+  margin-bottom: -5rem;
+  height: 50vh;
+  overflow: hidden;
+}
+
+.show-image img {
+  opacity: 0.6;
+  transition: 0.2s;
+}
+
+.show-image:hover img {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+.add-restaurant {
+  position: fixed;
+  display: inline-block;
+  height: 3.5rem;
+  width: 3.5rem;
+  box-shadow: 0 0 1rem rgba(235, 104, 100, 0.4);
+  border-radius: 50%;
+  bottom: 4rem;
+  right: 2rem;
+  cursor: pointer;
+  font-size: 3rem;
+  background: url('/images/add.svg');
+  background-color: #eb6864;
+  background-size: cover;
+}
+
+footer {
+  position: fixed;
+  height: 2rem;
+  line-height: 2rem;
+  width: 100%;
+  bottom: 0;
+  text-align: center;
+}
+
+@media screen and (min-width: 576px) {
+  .container {
+    margin-top: 6rem;
+  }
+  .card-image {
+    height: 20vh;
+    overflow: hidden;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .card-image {
+    height: 30vh;
+    overflow: hidden;
+  }
+}

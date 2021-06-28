@@ -1,0 +1,120 @@
+<div class="container">
+  <div class="accordion my-3" id="accordion">
+    <div class="accordion-item">
+      <p class="accordion-header h2" id="searchAccordion">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#searchCollapse"
+          aria-expanded="false" aria-controls="searchCollapse">
+          搜尋
+        </button>
+      </p>
+      <div id="searchCollapse" class="accordion-collapse collapse" aria-labelledby="searchAccordion" data-bs-parent="#accordion">
+        <div class="accordion-body">
+          {{!-- search bar --}}
+          <form action="/search" method="POST" autocomplete="off" class="row g-3">
+            <div class="col-12 col-sm-auto">
+              <select class="form-select" name="field" required>
+                <option disabled>搜尋範圍</option>
+                {{#each fieldMap}}
+                <option value="{{@key}}" {{ifEquals this ../field}}>{{this}}</option>
+                {{/each}}
+              </select>
+            </div>
+            <div class="col-12 col-sm-8">
+              <input type="text" name="keyword" id="userInput" class="form-control" placeholder="輸入關鍵字" value="{{ keyword }}"
+                aria-label="search by restaurant name" aria-describedby="searchButton" required>
+            </div>
+            <div class="col-12 col-sm-auto d-flex justify-content-between">
+              {{#if clearResult}}
+              <a href="/" class="btn btn-secondary" type="button" id="clearResultButton">結束搜尋</a>
+              {{/if}}
+              <button class="btn btn-primary ms-2" type="submit" id="searchButton">搜尋</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <p class="accordion-header h2" id="sortAccordion">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sortCollapse"
+          aria-expanded="false" aria-controls="sortCollapse">
+          排序
+        </button>
+      </p>
+      <div id="sortCollapse" class="accordion-collapse collapse" aria-labelledby="sortsortAccordion"
+        data-bs-parent="#accordion">
+        <div class="accordion-body">
+          {{!-- sort --}}
+          {{#if sort}}
+          <select class="form-select" id="sort">
+            <option disabled selected>請選擇排序條件</option>
+            <option value="rating_asc">評分高→低</option>
+            <option value="rating_desc">評分低→高</option>
+            <option value="category">類型</option>
+          </select>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{#if noResult}}
+  <p>抱歉，在{{ field }}欄位搜尋「{{ keyword }}」沒有相關結果 😢</p>
+  {{/if}}
+
+  {{!-- restaurant cards --}}
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="cardsContainer">
+    {{#each restaurants}}
+
+    <div class="col">
+      <div class="card">
+        <div class="card-image" title="{{ this.name }}">
+          <a href="/restaurant/{{ this._id }}" class="text-decoration-none">
+            {{#if this.image}}
+            <img src="{{toImage this.image.contentType this.image.data.buffer}}" class="card-img-top" alt="restaurant image">
+            {{else}}
+            <img src="{{ this.image_url }}" class="card-img-top" alt="restaurant image">
+            {{/if}}
+          </a>
+        </div>
+        <div class="card-body">
+          <a href="/restaurant/{{ this._id }}" class="card-title h5 text-decoration-none d-block" title="{{ this.name }}">{{ this.name }}</a>
+          <span class="badge bg-info">{{ this.category }}</span>
+          <span class="badge bg-warning text-dark"><i class="bi bi-star-fill me-1"></i>{{ this.rating }}</span>
+          <a href="/restaurant/{{ this._id }}/edit" class="badge bg-secondary text-decoration-none">
+            <i class="bi bi-pencil-square"></i>
+          </a>
+          <a type="button" class="badge bg-light text-decoration-none"
+          data-bs-toggle="modal" data-bs-target="#modal{{ this._id }}">
+            <i class="bi bi-trash-fill"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="modal{{ this._id }}" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <p class="modal-title h5">{{ this.name }}</p>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            確認要刪除餐廳「{{ this.name }}」嗎？
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">取消</button>
+            <form action="/restaurant/{{ this._id }}?_method=DELETE" method="POST">
+              <button type="submit" class="btn btn-secondary">確認刪除</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+
+  {{!-- new --}}
+  <a href="/restaurant/new">
+    <span class="add-restaurant"></span>
+  </a>
+</div>

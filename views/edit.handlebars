@@ -1,0 +1,73 @@
+{{#if restaurant}}
+<div class="show-image">
+  {{#if image}}
+  <img src="{{ image }}" alt="restaurant photo" style="width: 100%;">
+  {{else}}
+  <img src="{{ restaurant.image_url }}" alt="restaurant photo" style="width: 100%;">
+  {{/if}}
+</div>
+{{/if}}
+<div class="container">
+  <div class="row my-3">
+    {{#if error}}
+    <p>{{ error }}</p>
+    <a href="/">回首頁</a>
+    {{else}}
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">首頁</a></li>
+        <li class="breadcrumb-item"><a href="/restaurant/{{ restaurant._id }}">{{ restaurant.name }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">編輯</li>
+      </ol>
+    </nav>
+
+    <form action="/restaurant/{{ restaurant._id }}?_method=PUT" method="POST" autocomplete="off" encType="multipart/form-data">
+      <div class="input-group mb-3">
+        <span class="input-group-text">餐廳名稱</span>
+        <input type="text" class="form-control" id="name" name="name" value="{{ restaurant.name }}">
+      </div>
+
+      <div class="input-group mb-3">
+        <label class="input-group-text" for="image">照片</label>
+        <input type="file" class="form-control" id="image" name="image" accept="image/png, image/jpeg">
+      </div>
+
+      <div class="input-group mb-3">
+        <span class="input-group-text">評分</span>
+        <input type="number" class="form-control" id="rating" name="rating" value="{{ restaurant.rating }}" step="0.1" min="0" max="10">
+      </div>
+
+      <div class="input-group mb-3">
+        <label class="input-group-text" for="category">類型</label>
+        <input type="text" class="form-control" name="category" list="categoryList" placeholder="{{ restaurant.category }}">
+          <datalist id="categoryList">
+          {{#each categories}}
+          <option value="{{this}}" {{ifEquals this ../restaurant.category}}>{{this}}</option>
+          {{/each}}
+          </datalist>
+      </div>
+
+      <div class="input-group mb-3">
+        <span class="input-group-text">電話</span>
+        <input type="tel" class="form-control" id="phone" name="phone" value="{{ restaurant.phone }}">
+      </div>
+
+      <div class="input-group mb-3">
+        <span class="input-group-text">地址</span>
+        <input type="text" class="form-control" id="location" name="location" value="{{ restaurant.location }}">
+      </div>
+
+      <div class="input-group mb-3">
+        <span class="input-group-text">Google Map</span>
+        <input type="text" class="form-control" id="google_map" name="google_map" value="{{ restaurant.google_map }}">
+      </div>
+
+      <div class="input-group mb-3">
+        <span class="input-group-text">描述</span>
+        <textarea class="form-control" id="description" name="description" rows="5" cols="10">{{ restaurant.description }}</textarea>
+      </div>
+      <button class="btn btn-primary" type="submit">送出</button>
+    </form>
+    {{/if}}
+  </div>
+</div>
