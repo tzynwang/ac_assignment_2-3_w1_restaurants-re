@@ -19,4 +19,4 @@
 1. `npm install`
 1. `npm run seed`
 1. `npm run start`
-1. 使用瀏覽器開啟：`http://localhost:5000` 即可瀏覽本專案
+1. 使用瀏覽器開啟：`http://localhost:3000` 即可瀏覽本專案
