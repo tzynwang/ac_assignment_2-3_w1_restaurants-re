@@ -1,61 +1,31 @@
 <div class="container">
-  <div class="accordion my-3" id="accordion">
-    <div class="accordion-item">
-      <p class="accordion-header h2" id="searchAccordion">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#searchCollapse"
-          aria-expanded="false" aria-controls="searchCollapse">
-          搜尋
-        </button>
-      </p>
-      <div id="searchCollapse" class="accordion-collapse collapse" aria-labelledby="searchAccordion" data-bs-parent="#accordion">
-        <div class="accordion-body">
-          {{!-- search bar --}}
-          <form action="/search" method="POST" autocomplete="off" class="row g-3">
-            <div class="col-12 col-sm-auto">
-              <select class="form-select" name="field" required>
-                <option disabled>搜尋範圍</option>
-                {{#each fieldMap}}
-                <option value="{{@key}}" {{ifEquals this ../field}}>{{this}}</option>
-                {{/each}}
-              </select>
-            </div>
-            <div class="col-12 col-sm-8">
-              <input type="text" name="keyword" id="userInput" class="form-control" placeholder="輸入關鍵字" value="{{ keyword }}"
-                aria-label="search by restaurant name" aria-describedby="searchButton" required>
-            </div>
-            <div class="col-12 col-sm-auto d-flex justify-content-between">
-              {{#if clearResult}}
-              <a href="/" class="btn btn-secondary" type="button" id="clearResultButton">結束搜尋</a>
-              {{/if}}
-              <button class="btn btn-primary ms-2" type="submit" id="searchButton">搜尋</button>
-            </div>
-          </form>
-        </div>
-      </div>
+  <form action="/search" method="POST" autocomplete="off" class="mb-3">
+    <div class="input-group">
+      <select class="form-select" name="field" required>
+        <option disabled>搜尋範圍</option>
+        {{#each fieldMap}}
+        <option value="{{@key}}" {{ifEquals this ../field}}>{{this}}</option>
+        {{/each}}
+      </select>
+      <input type="text" name="keyword" id="userInput" class="form-control" placeholder="輸入關鍵字" value="{{ keyword }}"
+        aria-label="search by restaurant name" aria-describedby="searchButton" required>
+      {{#if clearResult}}
+      <a href="/" class="btn btn-secondary" id="clearResultButton">結束搜尋</a>
+      {{/if}}
+      <button class="btn btn-primary ms-2" type="submit" id="searchButton">搜尋</button>
     </div>
-    <div class="accordion-item">
-      <p class="accordion-header h2" id="sortAccordion">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sortCollapse"
-          aria-expanded="false" aria-controls="sortCollapse">
-          排序
-        </button>
-      </p>
-      <div id="sortCollapse" class="accordion-collapse collapse" aria-labelledby="sortsortAccordion"
-        data-bs-parent="#accordion">
-        <div class="accordion-body">
-          {{!-- sort --}}
-          {{#if sort}}
-          <select class="form-select" id="sort">
-            <option disabled selected>請選擇排序條件</option>
-            <option value="rating_asc">評分高→低</option>
-            <option value="rating_desc">評分低→高</option>
-            <option value="category">類型</option>
-          </select>
-          {{/if}}
-        </div>
-      </div>
-    </div>
+  </form>
+  
+  {{#if sort}}
+  <div class="mb-3">
+    <select class="form-select" id="sort">
+      <option disabled selected>請選擇排序條件</option>
+      <option value="rating_asc">評分高→低</option>
+      <option value="rating_desc">評分低→高</option>
+      <option value="category">類型</option>
+    </select>
   </div>
+  {{/if}}
 
   {{#if noResult}}
   <p>抱歉，在{{ field }}欄位搜尋「{{ keyword }}」沒有相關結果 😢</p>
