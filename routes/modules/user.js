@@ -38,6 +38,8 @@ router.post('/register', async (req, res) => {
   if (!email.match(emailReg)) registerErrors.push({ message: '請檢查Email格式' })
   if (password.length < 6 || password.length > 24) registerErrors.push({ message: '密碼長度限制6到24個字元' })
   if (password !== passwordConfirm) registerErrors.push({ message: '密碼與確認密碼內容不同' })
+  const find = await User.findOne({ email })
+  if (find) registerErrors.push({ message: '此Email已經註冊過了' })
   if (registerErrors.length) return res.render('register', { registerErrors })
 
   const hashPassword = await bcrypt.hash(password, saltRounds)
