@@ -1,0 +1,29 @@
+{{#if registerErrors}}
+{{#each registerErrors}}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  {{this.message}}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{{/each}}
+{{/if}}
+
+{{#if registerSuccess}}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  {{registerSuccess}}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{{/if}}
+
+{{#if passportLocalError}}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  {{passportLocalError}}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{{/if}}
+
+{{#if loginHint}}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  {{loginHint}}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{{/if }}

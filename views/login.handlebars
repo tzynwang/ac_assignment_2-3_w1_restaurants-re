@@ -1,0 +1,15 @@
+<div class="container">
+  <h1>登入</h1>
+  {{>formMessages}}
+  <form action="/user/login" method="POST" class="mt-3">
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input type="email" class="form-control" id="email" name="email" required>
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">密碼</label>
+      <input type="password" class="form-control" id="password" name="password" min="6" max="24" required>
+    </div>
+    {{>3rdPartyLogin}}
+  </form>
+</div>
