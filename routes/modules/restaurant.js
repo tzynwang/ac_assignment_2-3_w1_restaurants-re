@@ -8,7 +8,7 @@ router.use(hasLoggedIn)
 
 router.get('/new', async (req, res) => {
   try {
-    const categories = await Restaurant.find().distinct('category').lean()
+    const categories = await Restaurant.find({ userId: req.user._id }).distinct('category').lean()
     res.render('new', { categories })
   } catch (error) {
     console.error(error)
@@ -19,7 +19,7 @@ router.get('/new', async (req, res) => {
 router.post('/', async (req, res) => {
   const userInput = req.body
   try {
-    const categories = await Restaurant.find().distinct('category').lean()
+    const categories = await Restaurant.find({ userId: req.user._id }).distinct('category').lean()
     const newRestaurant = new Restaurant()
     for (const item in userInput) {
       switch (item) {
@@ -43,6 +43,8 @@ router.post('/', async (req, res) => {
     } else {
       newRestaurant.image_url = 'https://images.pexels.com/photos/1484516/pexels-photo-1484516.jpeg'
     }
+
+    newRestaurant.userId = req.user._id
 
     await newRestaurant.save()
     res.redirect('/')

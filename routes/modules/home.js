@@ -15,7 +15,11 @@ const fieldMap = {
 
 router.get('/', hasLoggedIn, async (req, res) => {
   try {
-    const restaurants = await Restaurant.find({ isDelete: false }).sort({ _id: -1 }).lean()
+    const restaurants = await Restaurant.find({
+      userId: req.user._id,
+      isDelete: false
+    })
+      .sort({ _id: -1 }).lean()
     res.render('index', { restaurants, searchCheck: true, sort: true, fieldMap })
   } catch (error) {
     console.error(error)
@@ -26,7 +30,7 @@ router.post('/search', hasLoggedIn, async (req, res) => {
   const keyword = req.body.keyword.trim()
   const field = req.body.field
 
-  const searchRange = {}
+  const searchRange = { userId: req.user._id }
   searchRange[field] = new RegExp(keyword, 'i')
   try {
     const results = await Restaurant.find(searchRange).lean()
@@ -50,7 +54,11 @@ router.post('/sort', hasLoggedIn, async (req, res) => {
       sortConfig.category = 1
   }
   try {
-    const restaurants = await Restaurant.find({ isDelete: false }).sort(sortConfig).lean()
+    const restaurants = await Restaurant.find({
+      userId: req.user._id,
+      isDelete: false
+    })
+      .sort(sortConfig).lean()
     res.send(restaurants)
   } catch (error) {
     console.error(error)
