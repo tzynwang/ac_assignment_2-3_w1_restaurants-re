@@ -14,6 +14,13 @@
 </div>
 {{/if}}
 
+{{#if logoutSuccess}}
+<div class="alert alert-primary alert-dismissible fade show logout-success" role="alert">
+  {{logoutSuccess}}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{{/if}}
+
 {{#if passportLocalError}}
 <div class="alert alert-warning alert-dismissible fade show" role="alert">
   {{passportLocalError}}
