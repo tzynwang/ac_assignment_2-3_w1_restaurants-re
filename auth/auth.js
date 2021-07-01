@@ -18,4 +18,14 @@ function navButtons (req, res, next) {
   return next()
 }
 
-module.exports = { hasLoggedIn, hasLoggedOut, navButtons }
+function navAvatar (req, res, next) {
+  if (req.user) res.locals.navAvatar = req.user.avatar_url
+  return next()
+}
+
+function navUsername (req, res, next) {
+  res.locals.navUsername = (req.user && req.user.username) ? req.user.username : '使用者'
+  return next()
+}
+
+module.exports = { hasLoggedIn, hasLoggedOut, navButtons, navAvatar, navUsername }

@@ -7,6 +7,24 @@
 {{/each}}
 {{/if}}
 
+{{#if updateErrors}}
+{{#each updateErrors}}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  {{this.message}}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{{/each}}
+{{/if}}
+
+{{#if updateSuccess}}
+{{#each updateSuccess}}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  {{this.message}}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{{/each}}
+{{/if}}
+
 {{#if registerSuccess}}
 <div class="alert alert-success alert-dismissible fade show" role="alert">
   {{registerSuccess}}

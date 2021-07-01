@@ -14,13 +14,16 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
+  avatar_url: {
+    type: String,
+    trim: true
+  },
+  avatar: {
+    data: Buffer,
+    contentType: String
+  },
   type: {
     type: String
-  },
-  isDelete: {
-    type: Boolean,
-    default: false,
-    require: true
   }
 })
 

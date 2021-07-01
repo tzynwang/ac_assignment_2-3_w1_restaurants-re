@@ -26,9 +26,21 @@
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav">
           {{#if isAuthenticated}}
-          <li class="nav-item">
-            <a class="nav-link" href="/user/logout">登出</a>
-          </li>
+          <div class="dropdown dropstart">
+            <a class="text-decoration-none dropdown-toggle" id="dropdownMenu" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <img class="rounded-circle" src="{{navAvatar}}" alt="user avatar image">
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
+              <li>
+                <span class="dropdown-item disabled d-inline-block" tabindex="-1" aria-disabled="true">
+                {{navUsername}}<br>--
+                </span>
+              </li>
+              <li><a class="dropdown-item" href="/user">帳戶管理</a></li>
+              <li><a class="dropdown-item" href="/user/logout">登出</a></li>
+            </ul>
+          </div>
           {{else}}
           <li class="nav-item">
             <a class="nav-link" href="/user/register">註冊</a>

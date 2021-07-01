@@ -55,6 +55,9 @@ app.engine('handlebars', expressHandlebars({
     },
     toImage (contentType, buffer) {
       return `data:image${contentType};base64,${buffer.toString('base64')}`
+    },
+    userTypeLocal (userType, type) {
+      return userType === type
     }
   }
 }))
@@ -64,9 +67,11 @@ app.set('view engine', 'handlebars')
 const methodOverride = require('method-override')
 app.use(methodOverride('_method'))
 
-// navbar login or logout buttons
-const { navButtons } = require('./auth/auth')
+// navbar login or logout buttons, avatar image
+const { navButtons, navAvatar, navUsername } = require('./auth/auth')
 app.use(navButtons)
+app.use(navAvatar)
+app.use(navUsername)
 
 // routes
 const routes = require('./routes')
