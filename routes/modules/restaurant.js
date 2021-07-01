@@ -87,6 +87,18 @@ router.put('/:id', async (req, res) => {
   const id = req.params.id
   const update = req.body
 
+  for (const key in update) {
+    if (key !== 'google_map' && !update[key]) {
+      const restaurant = await Restaurant.findById(id).lean()
+      const categories = await Restaurant.find().distinct('category').lean()
+
+      const contentType = restaurant.image ? restaurant.image.contentType : null
+      const base64 = restaurant.image ? restaurant.image.data.buffer.toString('base64') : null
+      const image = (contentType && base64) ? `data:image${contentType};base64,${base64}` : null
+      return res.render('edit', { restaurant, categories, image, hint: '有標註*號欄位皆為必填 😖' })
+    }
+  }
+
   try {
     const restaurant = await Restaurant.findOne({ _id: id })
     for (const item in update) {
