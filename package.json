@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "seed": "node models/seeds/restaurantSeeder.js",
+    "seed": "node models/seeds/userSeeder.js && node models/seeds/restaurantSeeder.js",
     "start": "node app.js",
     "dev": "nodemon app.js",
     "bundleSort": "browserify public/scripts/modules/sort.js > public/scripts/sortBundle.js"
