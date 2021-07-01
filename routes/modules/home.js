@@ -15,7 +15,7 @@ const fieldMap = {
 
 router.get('/', hasLoggedIn, async (req, res) => {
   try {
-    const restaurants = await Restaurant.find({ deleteFlag: false }).sort({ _id: -1 }).lean()
+    const restaurants = await Restaurant.find({ isDelete: false }).sort({ _id: -1 }).lean()
     res.render('index', { restaurants, searchCheck: true, sort: true, fieldMap })
   } catch (error) {
     console.error(error)
@@ -50,7 +50,7 @@ router.post('/sort', hasLoggedIn, async (req, res) => {
       sortConfig.category = 1
   }
   try {
-    const restaurants = await Restaurant.find({ deleteFlag: false }).sort(sortConfig).lean()
+    const restaurants = await Restaurant.find({ isDelete: false }).sort(sortConfig).lean()
     res.send(restaurants)
   } catch (error) {
     console.error(error)

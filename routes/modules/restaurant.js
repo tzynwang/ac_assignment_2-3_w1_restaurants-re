@@ -126,7 +126,7 @@ router.delete('/:id', async (req, res) => {
   const id = req.params.id
   try {
     const restaurant = await Restaurant.findOne({ _id: id })
-    restaurant.deleteFlag = true
+    restaurant.isDelete = true
     restaurant.save()
     res.redirect('/')
   } catch (error) {

@@ -45,7 +45,7 @@ const restaurantSchema = new Schema({
     type: String,
     trim: true
   },
-  deleteFlag: {
+  isDelete: {
     type: Boolean,
     default: false,
     require: true
