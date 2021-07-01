@@ -2,6 +2,8 @@ const express = require('express')
 const app = express()
 const port = 3000
 
+if (process.env.NODE_ENV !== 'production') require('dotenv').config()
+
 // DB
 require('./config/mongoose')
 
@@ -37,7 +39,9 @@ app.use((req, res, next) => {
 // passport
 const passport = require('passport')
 const loginVerify = require('./auth/passportLocal')
+const loginVerifyFB = require('./auth/passportFB')
 loginVerify(passport)
+loginVerifyFB(passport)
 app.use(passport.initialize())
 app.use(passport.session())
 
