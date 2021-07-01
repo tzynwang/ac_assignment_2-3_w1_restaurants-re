@@ -14,6 +14,32 @@ const bodyParser = require('body-parser')
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
+// for flash message and auth status keeping
+const session = require('express-session')
+app.use(session({
+  secret: process.env.SESSION_SECRET_KEY || 'The quick brown fox jumps over the lazy dog',
+  resave: true,
+  saveUninitialized: true
+}))
+
+const flash = require('connect-flash')
+app.use(flash())
+
+// auth-related flash message
+app.use((req, res, next) => {
+  res.locals.registerSuccess = req.flash('registerSuccess')
+  res.locals.loginHint = req.flash('loginHint')
+  res.locals.passportLocalError = req.flash('error')
+  next()
+})
+
+// passport
+const passport = require('passport')
+const loginVerify = require('./auth/passportLocal')
+loginVerify(passport)
+app.use(passport.initialize())
+app.use(passport.session())
+
 // rendering template
 const expressHandlebars = require('express-handlebars')
 app.engine('handlebars', expressHandlebars({
@@ -32,6 +58,10 @@ app.set('view engine', 'handlebars')
 // method overwritten
 const methodOverride = require('method-override')
 app.use(methodOverride('_method'))
+
+// navbar login or logout buttons
+const { navButtons } = require('./auth/auth')
+app.use(navButtons)
 
 // routes
 const routes = require('./routes')
