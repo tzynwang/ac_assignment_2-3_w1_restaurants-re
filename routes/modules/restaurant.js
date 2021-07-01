@@ -2,6 +2,10 @@ const express = require('express')
 const router = express.Router()
 const Restaurant = require('../../models/restaurant')
 
+// only allow logged in users
+const { hasLoggedIn } = require('../../auth/auth')
+router.use(hasLoggedIn)
+
 router.get('/new', async (req, res) => {
   try {
     const categories = await Restaurant.find().distinct('category').lean()

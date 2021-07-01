@@ -2,6 +2,10 @@ const express = require('express')
 const router = express.Router()
 
 const Restaurant = require('../../models/restaurant')
+
+// only allow logged in users
+const { hasLoggedIn, hasLoggedOut } = require('../../auth/auth')
+
 const fieldMap = {
   name: '餐廳名稱',
   category: '類型',
@@ -9,7 +13,7 @@ const fieldMap = {
   description: '描述'
 }
 
-router.get('/', async (req, res) => {
+router.get('/', hasLoggedIn, async (req, res) => {
   try {
     const restaurants = await Restaurant.find({ deleteFlag: false }).sort({ _id: -1 }).lean()
     res.render('index', { restaurants, searchCheck: true, sort: true, fieldMap })
@@ -18,7 +22,7 @@ router.get('/', async (req, res) => {
   }
 })
 
-router.post('/search', async (req, res) => {
+router.post('/search', hasLoggedIn, async (req, res) => {
   const keyword = req.body.keyword.trim()
   const field = req.body.field
 
@@ -32,7 +36,7 @@ router.post('/search', async (req, res) => {
   }
 })
 
-router.post('/sort', async (req, res) => {
+router.post('/sort', hasLoggedIn, async (req, res) => {
   const select = req.body.select
   const sortConfig = {}
   switch (select) {
@@ -53,7 +57,7 @@ router.post('/sort', async (req, res) => {
   }
 })
 
-router.get('/welcome', (req, res) => {
+router.get('/welcome', hasLoggedOut, (req, res) => {
   res.render('welcome')
 })
 
