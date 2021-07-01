@@ -5,6 +5,19 @@
   z-index: 9;
 }
 
+.welcome-description {
+  background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url('/images/undraw_donut_love_kau1.svg');
+  background-size: contain;
+  background-position: 50% 33%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.welcome-description h1 {
+  letter-spacing: .5rem;
+  font-size: 3rem;
+}
+
 .container {
   margin-top: 4rem;
   margin-bottom: 3rem;
@@ -87,5 +100,17 @@ footer {
   .card-image {
     height: 30vh;
     overflow: hidden;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .welcome-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .welcome-description {
+    background: none;
   }
 }

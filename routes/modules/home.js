@@ -53,4 +53,8 @@ router.post('/sort', async (req, res) => {
   }
 })
 
+router.get('/welcome', (req, res) => {
+  res.render('welcome')
+})
+
 module.exports = router
