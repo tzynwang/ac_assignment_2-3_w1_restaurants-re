@@ -1,4 +1,7 @@
 # Alpha Camp 2-3 作業：打造餐廳清單
+
+![Project cover image](./CoverImage.png)
+
 ## 功能介紹
 - 點擊每一張餐廳的卡片，即可瀏覽該餐廳的詳細資訊
 - 點擊右下角+號，可新增餐廳
@@ -20,3 +23,14 @@
 1. `npm run seed`
 1. `npm run start`
 1. 使用瀏覽器開啟：`http://localhost:3000` 即可瀏覽本專案
+
+## 銘謝
+- [unDraw](https://undraw.co/)：專案首頁主視覺圖片
+- [Hiring Artists Website Design](https://dribbble.com/shots/6158271-Hiring-Artists-Website-Design)：專案首頁版面設計參考
+- [BOOTSWATCH: Journal](https://bootswatch.com/journal/)：專案CSS模板
+- [Material: Color palettes](https://material.io/design/color/the-color-system.html#tools-for-picking-colors)：專案配色計算機
+
+## 開發者
+Charlie (Tzu Yin)
+- Email: tzyn.wang🍩gmail.com（🍩→@）
+- Blog: [普通文組](https://tzynwang.github.io/)
