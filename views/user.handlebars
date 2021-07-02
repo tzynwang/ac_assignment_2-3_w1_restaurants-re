@@ -9,7 +9,9 @@
     <div class="col-12 col-md-8 mx-auto">
       <form action="/user?_method=PUT" method="POST" encType="multipart/form-data">
         <div class="mb-3">
-          <img src="{{ user.avatar_url }}" alt="" class="d-block rounded-circle mb-3">
+          <div class="avatar-128 mb-3">
+            <img src="{{ user.avatar_url }}" class="d-block rounded-circle w-100" alt="user profile image">
+          </div>
           <label for="avatar" class="form-label">修改使用者頭像：</label>
           <input type="file" class="form-control" id="avatar" name="avatar" required>
         </div>

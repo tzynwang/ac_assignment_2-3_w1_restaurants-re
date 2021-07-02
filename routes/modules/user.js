@@ -17,7 +17,6 @@ const { hasLoggedIn, hasLoggedOut } = require('../../auth/auth')
 
 router.get('/', hasLoggedIn, async (req, res) => {
   const user = await User.findOne({ _id: req.user._id }).lean()
-  user.avatar_url = user.avatar_url.replace('width=32', 'width=128')
   const updateErrors = req.session.updateErrors ? req.session.updateErrors : null
   const updateSuccess = req.session.updateSuccess ? req.session.updateSuccess : null
   req.session.updateErrors = req.session.updateSuccess = null // clear session
@@ -111,7 +110,7 @@ router.post('/register', async (req, res) => {
     email,
     password: hashPassword,
     type: 'local',
-    avatar_url: `https://avatars.dicebear.com/api/jdenticon/${email.split(' ')[0]}.svg?width=32&background=%23ffffff`
+    avatar_url: `https://avatars.dicebear.com/api/jdenticon/${email.split(' ')[0]}.svg?width=128&background=%23ffffff`
   })
   await newUser.save()
   req.flash('registerSuccess', '註冊成功，您現在可以登入了 😊')

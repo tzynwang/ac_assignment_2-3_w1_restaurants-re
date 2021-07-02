@@ -25,6 +25,18 @@
   font-size: 3rem;
 }
 
+/* navbar */
+.avatar-32 {
+  width: 32px;
+  height: 32px;
+}
+
+/* user setting */
+.avatar-128 {
+  width: 128px;
+  height: 128px;
+}
+
 .container {
   margin-top: 4rem;
   margin-bottom: 3rem;
