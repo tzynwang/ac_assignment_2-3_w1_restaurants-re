@@ -48,7 +48,7 @@
         <input type="text" class="form-control" name="category" list="categoryList" placeholder="{{ restaurant.category }}" required>
           <datalist id="categoryList">
           {{#each categories}}
-          <option value="{{this}}" {{ifEquals this ../restaurant.category}}>{{this}}</option>
+          <option value="{{this}}" {{#if (isEqual this ../restaurant.category)}} selected {{/if}}>{{this}}</option>
           {{/each}}
           </datalist>
       </div>

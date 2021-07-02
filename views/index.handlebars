@@ -4,7 +4,7 @@
       <select class="form-select" name="field" required>
         <option disabled>搜尋範圍</option>
         {{#each fieldMap}}
-        <option value="{{@key}}" {{ifEquals this ../field}}>{{this}}</option>
+        <option value="{{@key}}" {{#if (isEqual this ../field)}} selected {{/if}}>{{this}}</option>
         {{/each}}
       </select>
       <input type="text" name="keyword" id="userInput" class="form-control" placeholder="輸入關鍵字" value="{{ keyword }}"

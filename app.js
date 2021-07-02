@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
 
 if (process.env.NODE_ENV !== 'production') require('dotenv').config()
 
@@ -54,17 +54,14 @@ const expressHandlebars = require('express-handlebars')
 app.engine('handlebars', expressHandlebars({
   defaultLayout: 'main',
   helpers: {
-    ifEquals (category, categoryToCheck) {
-      return category === categoryToCheck ? 'selected' : ''
-    },
     toImage (contentType, buffer) {
       return `data:image${contentType};base64,${buffer.toString('base64')}`
     },
-    userTypeLocal (userType, type) {
-      return userType === type
-    },
     notDEMO (userType) {
       return userType !== 'DEMO'
+    },
+    isEqual (target1, target2) {
+      return target1 === target2
     }
   }
 }))
