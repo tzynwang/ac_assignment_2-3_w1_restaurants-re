@@ -28,7 +28,7 @@
 1. `npm install`
 1. `npm run seed`
 1. `npm run start`
-1. 使用瀏覽器開啟：`http://localhost:3000` 即可瀏覽本專案
+1. 使用瀏覽器開啟：`http://localhost:3000/welcome` 即可瀏覽本專案
 1. 展示用帳號：
     - Email： `demo@demo.com`
     - 密碼：`12345678`
