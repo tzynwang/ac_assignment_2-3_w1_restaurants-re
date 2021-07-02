@@ -62,6 +62,9 @@ app.engine('handlebars', expressHandlebars({
     },
     userTypeLocal (userType, type) {
       return userType === type
+    },
+    notDEMO (userType) {
+      return userType !== 'DEMO'
     }
   }
 }))

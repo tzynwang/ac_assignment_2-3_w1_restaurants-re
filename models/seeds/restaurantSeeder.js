@@ -9,6 +9,7 @@ db.once('open', async () => {
   console.log('mongodb connected from restaurantSeeder')
   const user1 = await User.findOne({ email: 'user1@example.com' })
   const user2 = await User.findOne({ email: 'user2@example.com' })
+  const demo = await User.findOne({ email: 'demo@demo.com' })
   for (const restaurant of restaurants) {
     if (restaurant.id === 1 || restaurant.id === 2 || restaurant.id === 3) {
       await Restaurant.create({
@@ -38,6 +39,7 @@ db.once('open', async () => {
       })
     } else {
       await Restaurant.create({
+        userId: demo._id,
         name: restaurant.name,
         name_en: restaurant.name_en,
         category: restaurant.category,

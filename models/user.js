@@ -23,7 +23,8 @@ const userSchema = new Schema({
     contentType: String
   },
   type: {
-    type: String
+    type: String,
+    required: true
   }
 })
 

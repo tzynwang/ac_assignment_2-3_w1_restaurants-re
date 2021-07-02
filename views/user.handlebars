@@ -52,6 +52,7 @@
   </div>
   {{/if}}
   {{!-- delete account --}}
+  {{#if (notDEMO user.type)}}
   <div class="row mb-4">
     <div class="col-12 col-md-8 mx-auto">
       <p>不再登入本專案：</p>
@@ -82,4 +83,5 @@
       </div>
     </div>
   </div>
+  {{/if}}
 </div>
