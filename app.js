@@ -51,19 +51,10 @@ app.use(passport.session())
 
 // rendering template
 const expressHandlebars = require('express-handlebars')
+const { isEqual, toImage, notDEMO } = require('./controller/handlebarsHelpers')
 app.engine('handlebars', expressHandlebars({
   defaultLayout: 'main',
-  helpers: {
-    toImage (contentType, buffer) {
-      return `data:image${contentType};base64,${buffer.toString('base64')}`
-    },
-    notDEMO (userType) {
-      return userType !== 'DEMO'
-    },
-    isEqual (target1, target2) {
-      return target1 === target2
-    }
-  }
+  helpers: { isEqual, notDEMO, toImage }
 }))
 app.set('view engine', 'handlebars')
 
