@@ -16,4 +16,26 @@ router.get('/facebook/callback', passport.authenticate('facebook', {
   failureFlash: true
 }))
 
+// request email and profile from Google
+router.get('/google', passport.authenticate('google', {
+  scope: ['email', 'profile']
+}))
+
+// response from Google
+router.get('/google/callback', passport.authenticate('google', {
+  successRedirect: '/',
+  failureRedirect: '/user/login',
+  failureFlash: true
+}))
+
+// LINE
+router.get('/line', passport.authenticate('line'))
+
+// response from LINE
+router.get('/line/callback', passport.authenticate('line', {
+  successRedirect: '/',
+  failureRedirect: '/user/login',
+  failureFlash: true
+}))
+
 module.exports = router

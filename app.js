@@ -40,8 +40,12 @@ app.use((req, res, next) => {
 const passport = require('passport')
 const loginVerify = require('./auth/passportLocal')
 const loginVerifyFB = require('./auth/passportFB')
+const loginVerifyGoogle = require('./auth/passportGoogle')
+const loginVerifyLine = require('./auth/passportLine')
 loginVerify(passport)
 loginVerifyFB(passport)
+loginVerifyGoogle(passport)
+loginVerifyLine(passport)
 app.use(passport.initialize())
 app.use(passport.session())
 
