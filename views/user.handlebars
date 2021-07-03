@@ -10,7 +10,11 @@
       <form action="/user?_method=PUT" method="POST" encType="multipart/form-data">
         <div class="mb-3">
           <div class="avatar-128 mb-3">
+            {{#if avatar}}
+            <img src="{{ avatar }}" class="d-block rounded-circle w-100" alt="user profile image">
+            {{else}}
             <img src="{{ user.avatar_url }}" class="d-block rounded-circle w-100" alt="user profile image">
+            {{/if}}
           </div>
           <label for="avatar" class="form-label">修改使用者頭像：</label>
           <input type="file" class="form-control" id="avatar" name="avatar" required>

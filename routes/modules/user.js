@@ -17,15 +17,16 @@ const { hasLoggedIn, hasLoggedOut } = require('../../auth/auth')
 
 router.get('/', hasLoggedIn, async (req, res) => {
   const user = await User.findOne({ _id: req.user._id }).lean()
-  const updateErrors = req.session.updateErrors ? req.session.updateErrors : null
+  const avatar = user.avatar ? `data:image${user.avatar.contentType};base64,${user.avatar.data.toString('base64')}` : null
+  const formErrors = req.session.formErrors ? req.session.formErrors : null
   const updateSuccess = req.session.updateSuccess ? req.session.updateSuccess : null
-  req.session.updateErrors = req.session.updateSuccess = null // clear session
-  res.render('user', { user, updateErrors, updateSuccess })
+  req.session.formErrors = req.session.updateSuccess = null // clear session
+  res.render('user', { user, avatar, formErrors, updateSuccess })
 })
 
 router.put('/', hasLoggedIn, async (req, res) => {
   const user = await User.findOne({ _id: req.user._id })
-  const updateErrors = []
+  const formErrors = []
 
   if (req.files) {
     user.avatar.data = req.files.avatar.data
@@ -34,24 +35,24 @@ router.put('/', hasLoggedIn, async (req, res) => {
   if (req.body.username) {
     req.body.username.trim().length
       ? user.username = req.body.username
-      : updateErrors.push({ message: '請至少輸入一個字' })
+      : formErrors.push({ message: '請至少輸入一個字' })
   }
   if (req.body.password) {
     const passwordLength = req.body.password.trim().length
     if (passwordLength < 6 || passwordLength > 24) {
-      updateErrors.push({ message: '密碼長度限制6到24個字元' })
+      formErrors.push({ message: '密碼長度限制6到24個字元' })
     }
     if (req.body.password !== req.body.passwordConfirm) {
-      updateErrors.push({ message: '密碼與確認密碼內容不同' })
+      formErrors.push({ message: '密碼與確認密碼內容不同' })
     } else {
       const hashPassword = await bcrypt.hash(req.body.password, saltRounds)
       user.password = hashPassword
     }
   }
 
-  if (updateErrors.length) {
+  if (formErrors.length) {
     req.session.updateSuccess = null
-    req.session.updateErrors = updateErrors
+    req.session.formErrors = formErrors
     res.redirect('user')
   } else {
     req.session.updateSuccess = [{ message: '資料更新成功' }]
@@ -64,7 +65,7 @@ router.put('/', hasLoggedIn, async (req, res) => {
 router.delete('/', async (req, res) => {
   const { deleteConfirmation } = req.body
   if (deleteConfirmation !== `deleteConfirmation/${req.user.email}`) {
-    req.session.updateErrors = [{ message: '帳戶刪除確認碼不正確，無法刪除帳戶' }]
+    req.session.formErrors = [{ message: '帳戶刪除確認碼不正確，無法刪除帳戶' }]
     return res.redirect('/user')
   }
 
@@ -92,17 +93,17 @@ router.get('/register', hasLoggedOut, (req, res) => {
 
 router.post('/register', async (req, res) => {
   const { username, email, password, passwordConfirm } = req.body
-  const registerErrors = []
+  const formErrors = []
 
-  if (!email || !password || !passwordConfirm) registerErrors.push({ message: '標記*號為必填項目' })
-  if (username && username.length > 8) registerErrors.push({ message: '顯示名稱限制最多8字' })
+  if (!email || !password || !passwordConfirm) formErrors.push({ message: '標記*號為必填項目' })
+  if (username && username.length > 8) formErrors.push({ message: '顯示名稱限制最多8字' })
   const emailReg = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-  if (!email.match(emailReg)) registerErrors.push({ message: '請檢查Email格式' })
-  if (password.length < 6 || password.length > 24) registerErrors.push({ message: '密碼長度限制6到24個字元' })
-  if (password !== passwordConfirm) registerErrors.push({ message: '密碼與確認密碼內容不同' })
+  if (!email.match(emailReg)) formErrors.push({ message: '請檢查Email格式' })
+  if (password.length < 6 || password.length > 24) formErrors.push({ message: '密碼長度限制6到24個字元' })
+  if (password !== passwordConfirm) formErrors.push({ message: '密碼與確認密碼內容不同' })
   const find = await User.findOne({ email })
-  if (find) registerErrors.push({ message: '此Email已經註冊過了' })
-  if (registerErrors.length) return res.render('register', { registerErrors })
+  if (find) formErrors.push({ message: '此Email已經註冊過了' })
+  if (formErrors.length) return res.render('register', { formErrors })
 
   const hashPassword = await bcrypt.hash(password, saltRounds)
   const newUser = new User({
