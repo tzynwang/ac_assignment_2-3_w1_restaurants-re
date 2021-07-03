@@ -17,7 +17,7 @@ db.once('open', async () => {
   await User.create({
     email: 'user2@example.com',
     password,
-    avatar_url: 'https://avatars.dicebear.com/api/jdenticon/user1.svg?width=128&background=%23ffffff',
+    avatar_url: 'https://avatars.dicebear.com/api/jdenticon/user2.svg?width=128&background=%23ffffff',
     type: 'local'
   })
   await User.create({
