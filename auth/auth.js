@@ -19,7 +19,9 @@ function navButtons (req, res, next) {
 }
 
 function navAvatar (req, res, next) {
-  if (req.user) res.locals.navAvatar = req.user.avatar_url
+  if (req.user) {
+    res.locals.navAvatar = req.user.avatar ? `data:image${req.user.avatar.contentType};base64,${req.user.avatar.data.toString('base64')}` : req.user.avatar_url
+  }
   return next()
 }
 
