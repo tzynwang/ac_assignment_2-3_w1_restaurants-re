@@ -25,6 +25,8 @@
 ## 開啟流程
 1. `git clone https://github.com/tzynwang/ac_assignment_2-3_w1_restaurants-re.git`
 1. `cd ac_assignment_2-3_w1_restaurants-re`
+1. `code .`開啟本專案，參考[此份文件](https://docs.google.com/document/d/1lovClJzfHw5cARsQ_pbVXoYsHkCm3G1hc8Um-zqmYsw/edit?usp=sharing)，將根目錄`.env.example`檔案中列為SKIP的部分替換為相關ID與金鑰內容
+1. 將`.env.example`檔案名稱修改為`.env`
 1. `npm install`
 1. `npm run seed`
 1. `npm run start`
