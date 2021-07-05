@@ -1,31 +1,41 @@
 <div class="container">
-  <form action="/search" method="POST" autocomplete="off" class="mb-3">
-    <div class="input-group">
-      <select class="form-select" name="field" required>
-        <option disabled>搜尋範圍</option>
-        {{#each fieldMap}}
-        <option value="{{@key}}" {{#if (isEqual this ../field)}} selected {{/if}}>{{this}}</option>
-        {{/each}}
-      </select>
-      <input type="text" name="keyword" id="userInput" class="form-control" placeholder="輸入關鍵字" value="{{ keyword }}"
-        aria-label="search by restaurant name" aria-describedby="searchButton" required>
-      {{#if clearResult}}
-      <a href="/" class="btn btn-secondary" id="clearResultButton">結束搜尋</a>
-      {{/if}}
-      <button class="btn btn-primary ms-2" type="submit" id="searchButton">搜尋</button>
+  <div class="row">
+    <div class="col-12 col-lg-6">
+      <form action="/search" method="POST" autocomplete="off" class="mb-3 row">
+        <div class="col-4">
+          <select class="form-select" name="field" required>
+            <option disabled>搜尋範圍</option>
+            {{#each fieldMap}}
+            <option value="{{@key}}" {{#if (isEqual this ../field)}} selected {{/if}}>{{this}}</option>
+            {{/each}}
+          </select>
+        </div>
+        <div class="col-8">
+          <div class="input-group">
+            <input type="text" name="keyword" id="userInput" class="form-control" placeholder="輸入關鍵字" value="{{ keyword }}"
+              aria-label="search by restaurant name" aria-describedby="searchButton" required>
+            {{#if clearResult}}
+            <a href="/" class="btn btn-secondary" id="clearResultButton">結束搜尋</a>
+            {{/if}}
+            <button class="btn btn-primary" type="submit" id="searchButton">搜尋</button>
+          </div>
+        </div>
+      </form>
     </div>
-  </form>
-  
-  {{#if sort}}
-  <div class="mb-3">
-    <select class="form-select" id="sort">
-      <option disabled selected>請選擇排序條件</option>
-      <option value="rating_asc">評分高→低</option>
-      <option value="rating_desc">評分低→高</option>
-      <option value="category">類型</option>
-    </select>
+    <div class="col-12 col-lg-3"></div>
+    <div class="col-12 col-lg-3">
+      {{#if sort}}
+      <div class="mb-3">
+        <select class="form-select" id="sort">
+          <option disabled selected>請選擇排序條件</option>
+          <option value="rating_asc">評分高→低</option>
+          <option value="rating_desc">評分低→高</option>
+          <option value="category">類型</option>
+        </select>
+      </div>
+      {{/if}}
+    </div>
   </div>
-  {{/if}}
 
   {{#if noResult}}
   <p>抱歉，在{{ field }}欄位搜尋「{{ keyword }}」沒有相關結果 😢</p>
@@ -40,14 +50,16 @@
         <div class="card-image" title="{{ this.name }}">
           <a href="/restaurant/{{ this._id }}" class="text-decoration-none">
             {{#if this.image}}
-            <img src="{{toImage this.image.contentType this.image.data.buffer}}" class="card-img-top" alt="restaurant image">
+            <img src="{{toImage this.image.contentType this.image.data.buffer}}" class="card-img-top"
+              alt="restaurant image">
             {{else}}
             <img src="{{ this.image_url }}" class="card-img-top" alt="restaurant image">
             {{/if}}
           </a>
         </div>
         <div class="card-body">
-          <a href="/restaurant/{{ this._id }}" class="card-title h5 text-decoration-none d-block" title="{{ this.name }}">{{ this.name }}</a>
+          <a href="/restaurant/{{ this._id }}" class="card-title h5 text-decoration-none d-block"
+            title="{{ this.name }}">{{ this.name }}</a>
           <span class="badge bg-info">{{ this.category }}</span>
           <span class="badge bg-warning text-dark"><i class="bi bi-star-fill me-1"></i>{{ this.rating }}</span>
         </div>
@@ -59,7 +71,8 @@
         <a href="/restaurant/{{ this._id }}" class="text-decoration-none me-2">
           <i class="bi bi-search"></i> 詳細
         </a>
-        <a type="button" class="text-decoration-none btn btn-light" data-bs-toggle="modal" data-bs-target="#modal{{ this._id }}">
+        <a type="button" class="text-decoration-none btn btn-light" data-bs-toggle="modal"
+          data-bs-target="#modal{{ this._id }}">
           <i class="bi bi-trash-fill"></i> 刪除
         </a>
       </div>
