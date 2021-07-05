@@ -7,7 +7,7 @@ const Restaurant = require('../../models/restaurant')
 const { hasLoggedIn, hasLoggedOut } = require('../../auth/auth')
 
 const fieldMap = {
-  name: '餐廳名稱',
+  name: '名稱',
   category: '類型',
   location: '地址',
   description: '描述'
