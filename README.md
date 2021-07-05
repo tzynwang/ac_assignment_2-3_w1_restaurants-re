@@ -28,7 +28,7 @@
 1. `npm install`
 1. `npm run seed`
 1. `npm run start`
-1. 使用瀏覽器開啟：`http://localhost:3000/welcome` 即可瀏覽本專案
+1. 待終端機出現「`Express is listening on localhost:3000/welcome`」字樣後，即可使用瀏覽器開啟本專案：[http://localhost:3000/welcome](http://localhost:3000/welcome)
 1. 展示用帳號：
     - Email： `demo@demo.com`
     - 密碼：`12345678`
