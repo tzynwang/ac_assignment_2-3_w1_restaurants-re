@@ -12,6 +12,9 @@
 - 可執行簡易搜尋
   - 目前支援搜尋餐廳名稱、類型、地址與描述內容
 - 可根據餐廳評分與類型進行排序
+- 可根據餐廳類型進行篩選
+  ![Project filter image](./.README/filterImage.png)
+  - 支援複數篩選條件
 - 支援使用者上傳頭像圖片、修改顯示名稱
   ![Project user setting image](./.README/userSettingImage.png)
   - 除展示用帳號、與透過第三方帳號登入本專案的使用者以外，支援修改登入密碼
