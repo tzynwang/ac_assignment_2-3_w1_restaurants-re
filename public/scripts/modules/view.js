@@ -36,6 +36,17 @@ function renderCards (array) {
           </a>
         </div>
       </div>
+      <div class="mt-1 d-flex align-items-center justify-content-end">
+        <a href="/restaurant/${item._id}/edit" class="text-decoration-none me-2">
+          <i class="bi bi-pencil-square"></i> 編輯
+        </a>
+        <a href="/restaurant/${item._id}" class="text-decoration-none me-2">
+          <i class="bi bi-search"></i> 詳細
+        </a>
+        <a type="button" class="text-decoration-none btn btn-light" data-bs-toggle="modal" data-bs-target="#modal${item._id}">
+          <i class="bi bi-trash-fill"></i> 刪除
+        </a>
+      </div>
     </div>
 
     <div class="modal fade" id="modal${item._id}" tabindex="-1" aria-hidden="true">
