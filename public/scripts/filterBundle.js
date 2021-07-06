@@ -1829,13 +1829,6 @@ function renderCards (array) {
           <a href="/restaurant/${item._id}" class="card-title h5 text-decoration-none d-block">${item.name}</a>
           <span class="badge bg-info">${item.category}</span>
           <span class="badge bg-warning text-dark"><i class="bi bi-star-fill me-1"></i>${item.rating}</span>
-          <a href="/restaurant/${item._id}/edit" class="badge bg-secondary text-decoration-none">
-            <i class="bi bi-pencil-square"></i>
-          </a>
-          <a type="button" class="badge bg-light text-decoration-none"
-          data-bs-toggle="modal" data-bs-target="#modal${item._id}">
-            <i class="bi bi-trash-fill"></i>
-          </a>
         </div>
       </div>
       <div class="mt-1 d-flex align-items-center justify-content-end">
