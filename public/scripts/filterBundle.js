@@ -1778,17 +1778,23 @@ process.umask = function() { return 0; };
 
 },{}],29:[function(require,module,exports){
 const axios = require('axios')
-const view = require('./view')
+const { displaySpinner, renderCards } = require('./view')
 
-const sort = document.querySelector('#sort')
+const filterContainer = document.querySelector('#filterContainer')
 
-sort.addEventListener('change', async () => {
-  const select = sort.value
-  const response = await axios.post('/restaurant/sort', { select })
-  view.displaySpinner()
-  setTimeout(() => {
-    view.renderCards(response.data)
-  }, 300)
+filterContainer.addEventListener('change', async () => {
+  const selectedCategoriesRaw = document.querySelectorAll('#filterContainer input:checked')
+  const selected = []
+  selectedCategoriesRaw.forEach(node => selected.push(node.value))
+
+  const payload = { selected }
+  const response = await axios.post('/restaurant/filter', {
+    url: '/restaurant/filter',
+    method: 'post',
+    data: payload
+  })
+  displaySpinner()
+  renderCards(response.data)
 })
 
 },{"./view":30,"axios":1}],30:[function(require,module,exports){

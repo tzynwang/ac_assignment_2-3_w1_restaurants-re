@@ -37,6 +37,20 @@
     </div>
   </div>
 
+  <div class="row mb-3">
+    <div class="col" id="filterContainer">
+      <span>
+        依照餐廳類型篩選：
+      </span>
+      {{#each categories}}
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="filterCategory{{@index}}" value="{{this}}" name="filter">
+        <label class="form-check-label" for="filterCategory{{@index}}">{{this}}</label>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+
   {{#if noResult}}
   <p>抱歉，在{{ field }}欄位搜尋「{{ keyword }}」沒有相關結果 😢</p>
   {{/if}}
