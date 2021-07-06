@@ -1,5 +1,5 @@
 const axios = require('axios')
-const { displaySpinner, renderCards } = require('./view')
+const view = require('./view')
 
 const filterContainer = document.querySelector('#filterContainer')
 
@@ -14,6 +14,8 @@ filterContainer.addEventListener('change', async () => {
     method: 'post',
     data: payload
   })
-  displaySpinner()
-  renderCards(response.data)
+  view.displaySpinner()
+  setTimeout(() => {
+    view.renderCards(response.data)
+  }, 300)
 })

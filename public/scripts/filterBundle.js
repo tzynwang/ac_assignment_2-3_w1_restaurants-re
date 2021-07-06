@@ -1778,7 +1778,7 @@ process.umask = function() { return 0; };
 
 },{}],29:[function(require,module,exports){
 const axios = require('axios')
-const { displaySpinner, renderCards } = require('./view')
+const view = require('./view')
 
 const filterContainer = document.querySelector('#filterContainer')
 
@@ -1793,8 +1793,10 @@ filterContainer.addEventListener('change', async () => {
     method: 'post',
     data: payload
   })
-  displaySpinner()
-  renderCards(response.data)
+  view.displaySpinner()
+  setTimeout(() => {
+    view.renderCards(response.data)
+  }, 300)
 })
 
 },{"./view":30,"axios":1}],30:[function(require,module,exports){
