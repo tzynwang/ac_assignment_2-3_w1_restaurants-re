@@ -14,7 +14,8 @@ router.get('/', hasLoggedIn, async (req, res) => {
       isDelete: false
     })
       .sort({ _id: -1 }).lean()
-    res.render('index', { restaurants, searchCheck: true, sort: true, fieldMap })
+    const categories = await Restaurant.find({ userId: req.user._id }).distinct('category').lean()
+    res.render('index', { restaurants, categories, searchCheck: true, sort: true, filter: true, fieldMap })
   } catch (error) {
     console.error(error)
   }

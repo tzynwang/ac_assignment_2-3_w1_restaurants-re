@@ -46,6 +46,22 @@ router.post('/sort', hasLoggedIn, async (req, res) => {
   }
 })
 
+router.post('/filter', async (req, res) => {
+  const selected = req.body.data.selected
+  // when no category selected, return all restaurants
+  if (!selected.length) {
+    const results = await Restaurant.find({ userId: req.user.id }).sort({ _id: -1 }).lean()
+    res.send(results)
+  } else {
+    const results = []
+    for (const select of selected) {
+      const find = await Restaurant.find({ category: select, userId: req.user.id }).sort({ _id: -1 }).lean()
+      results.push(...find)
+    }
+    res.send(results)
+  }
+})
+
 router.get('/new', async (req, res) => {
   try {
     const categories = await Restaurant.find({ userId: req.user._id }).distinct('category').lean()
