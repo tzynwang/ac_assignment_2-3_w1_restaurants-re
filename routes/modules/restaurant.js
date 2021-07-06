@@ -48,18 +48,12 @@ router.post('/sort', hasLoggedIn, async (req, res) => {
 
 router.post('/filter', async (req, res) => {
   const selected = req.body.data.selected
-  // when no category selected, return all restaurants
-  if (!selected.length) {
-    const results = await Restaurant.find({ userId: req.user.id }).sort({ _id: -1 }).lean()
-    res.send(results)
-  } else {
-    const results = []
-    for (const select of selected) {
-      const find = await Restaurant.find({ category: select, userId: req.user.id }).sort({ _id: -1 }).lean()
-      results.push(...find)
-    }
-    res.send(results)
-  }
+  const conditions = selected.map(category => ({ category }))
+
+  // if no category selected, return all restaurants
+  // else pull results according to selected categories
+  const results = !selected.length ? await Restaurant.find({ userId: req.user.id }).sort({ _id: -1 }).lean() : await Restaurant.find({ userId: req.user.id }).or(conditions).sort({ _id: -1 }).lean()
+  res.send(results)
 })
 
 router.get('/new', async (req, res) => {
