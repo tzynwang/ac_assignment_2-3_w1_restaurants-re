@@ -31,10 +31,18 @@
   height: 32px;
 }
 
+.avatar-32 img {
+  object-fit: cover;
+}
+
 /* user setting */
 .avatar-128 {
   width: 128px;
   height: 128px;
+}
+
+.avatar-128 img {
+  object-fit: cover;
 }
 
 .container {
