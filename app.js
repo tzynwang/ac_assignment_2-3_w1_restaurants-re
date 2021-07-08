@@ -75,7 +75,7 @@ app.use(routes)
 // scripts, styles
 app.use(express.static('public'))
 
-app.use(function (req, res) {
+app.use((req, res) => {
   res.status(404).render('404')
 })
 
