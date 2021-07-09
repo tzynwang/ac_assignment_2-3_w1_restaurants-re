@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const Restaurant = require('../../models/restaurant')
 const fieldMap = require('../../config/fieldMap')
+const mongoose = require('mongoose')
 
 // only allow logged in users
 const { hasLoggedIn } = require('../../auth/auth')
@@ -105,16 +106,16 @@ router.post('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   const id = req.params.id
+  if (!mongoose.Types.ObjectId.isValid(id)) return res.render('show', { error: '沒有這間餐廳的資料 😢' })
+
   try {
     const restaurant = await Restaurant.findById(id).lean()
+    if (!restaurant) return res.render('show', { error: '沒有這間餐廳的資料 😢' })
 
     const contentType = restaurant.image ? restaurant.image.contentType : null
     const base64 = restaurant.image ? restaurant.image.data.buffer.toString('base64') : null
     const image = (contentType && base64) ? `data:image${contentType};base64,${base64}` : null
-
-    restaurant
-      ? res.render('show', { restaurant, image })
-      : res.render('show', { error: '沒有這間餐廳的資料 😢' })
+    res.render('show', { restaurant, image })
   } catch (error) {
     console.error(error)
   }
@@ -122,17 +123,18 @@ router.get('/:id', async (req, res) => {
 
 router.get('/:id/edit', async (req, res) => {
   const id = req.params.id
+  if (!mongoose.Types.ObjectId.isValid(id)) return res.render('show', { error: '沒有這間餐廳的資料 😢' })
+
   try {
     const restaurant = await Restaurant.findById(id).lean()
+    if (!restaurant) return res.render('show', { error: '沒有這間餐廳的資料 😢' })
+
     const categories = await Restaurant.find().distinct('category').lean()
 
     const contentType = restaurant.image ? restaurant.image.contentType : null
     const base64 = restaurant.image ? restaurant.image.data.buffer.toString('base64') : null
     const image = (contentType && base64) ? `data:image${contentType};base64,${base64}` : null
-
-    restaurant
-      ? res.render('edit', { restaurant, categories, image })
-      : res.render('show', { error: '沒有這間餐廳的資料 😢' })
+    res.render('edit', { restaurant, categories, image })
   } catch (error) {
     console.error(error)
   }
