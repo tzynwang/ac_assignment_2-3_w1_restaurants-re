@@ -63,8 +63,8 @@ const methodOverride = require('method-override')
 app.use(methodOverride('_method'))
 
 // navbar login or logout buttons, avatar image
-const { navButtons, navAvatar, navUsername } = require('./auth/auth')
-app.use(navButtons)
+const { isAuth, navAvatar, navUsername } = require('./auth/auth')
+app.use(isAuth)
 app.use(navAvatar)
 app.use(navUsername)
 
