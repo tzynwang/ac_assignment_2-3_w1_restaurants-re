@@ -13,7 +13,7 @@ function hasLoggedOut (req, res, next) {
   res.redirect('/')
 }
 
-function navButtons (req, res, next) {
+function isAuth (req, res, next) {
   res.locals.isAuthenticated = req.isAuthenticated()
   return next()
 }
@@ -30,4 +30,4 @@ function navUsername (req, res, next) {
   return next()
 }
 
-module.exports = { hasLoggedIn, hasLoggedOut, navButtons, navAvatar, navUsername }
+module.exports = { hasLoggedIn, hasLoggedOut, isAuth, navAvatar, navUsername }
