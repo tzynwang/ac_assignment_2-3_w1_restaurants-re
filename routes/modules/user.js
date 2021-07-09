@@ -29,8 +29,12 @@ router.put('/', hasLoggedIn, async (req, res) => {
   const formErrors = []
 
   if (req.files) {
-    user.avatar.data = req.files.avatar.data
-    user.avatar.contentType = req.files.avatar.mimetype
+    if (req.files.avatar.mimetype === 'image/jpeg' || req.files.avatar.mimetype === 'image/png') {
+      user.avatar.data = req.files.avatar.data
+      user.avatar.contentType = req.files.avatar.mimetype
+    } else {
+      formErrors.push({ message: '頭像圖片僅支援jp(e)g或png格式之檔案' })
+    }
   }
   if (req.body.username) {
     req.body.username.trim().length
@@ -53,7 +57,7 @@ router.put('/', hasLoggedIn, async (req, res) => {
   if (formErrors.length) {
     req.session.updateSuccess = null
     req.session.formErrors = formErrors
-    res.redirect('user')
+    return res.redirect('user')
   } else {
     req.session.updateSuccess = [{ message: '資料更新成功' }]
   }
