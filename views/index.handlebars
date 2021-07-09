@@ -37,6 +37,7 @@
     </div>
   </div>
 
+  {{#if filter}}
   <div class="row mb-3">
     <div class="col" id="filterContainer">
       <span>
@@ -50,6 +51,7 @@
       {{/each}}
     </div>
   </div>
+  {{/if}}
 
   {{#if noResult}}
   <p>抱歉，在{{ field }}欄位搜尋「{{ keyword }}」沒有相關結果 😢</p>
